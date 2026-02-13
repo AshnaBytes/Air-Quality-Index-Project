@@ -1,0 +1,26 @@
+# Environment variables
+.env
+
+# Python cache
+__pycache__/
+*.pyc
+
+# Virtual environments
+venv/
+.venv/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Data files (generated)
+data/
+
+# OS files
+.DS_Store
+
+
+node_modules/
+.env
+__pycache__/
+*.pyc
+
