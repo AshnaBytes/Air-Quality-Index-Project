@@ -17,38 +17,15 @@ def pm25_to_aqi(pm):
     else:
         return 300
 
-def build_features(
-    weather_path: str = os.path.join("data", "historical", "openmeteo_weather.csv"),
-    air_path: str = os.path.join("data", "historical", "openmeteo_air_quality.csv"),
-    output_path: str = "aqi_features_v1.csv"
-):
-    """
-    Builds AQI features exactly as done in the notebook.
-    Returns final feature DataFrame and also saves it to CSV.
-    """
 
-    # --------------------
-    # Load data
-    # --------------------
-    weather = pd.read_csv(weather_path)
-    air = pd.read_csv(air_path)
-
-    weather["date"] = pd.to_datetime(weather["date"])
-    air["date"] = pd.to_datetime(air["date"])
-
-    # --------------------
-    # Merge
-    # --------------------
-    df = weather.merge(air, on="date", how="inner")
-
-    # Ensure correct order
+# --------------------
+# CORE FEATURE ENGINEERING (REUSABLE)
+# --------------------
+def apply_feature_engineering(df: pd.DataFrame) -> pd.DataFrame:
     df = df.sort_values("date")
 
     df["aqi"] = df["pm25"].apply(pm25_to_aqi)
-    
-    # --------------------
-    # Feature Engineering (SAME AS NOTEBOOK)
-    # --------------------
+
     df["aqi_lag_1"] = df["aqi"].shift(1)
     df["aqi_lag_2"] = df["aqi"].shift(2)
     df["aqi_lag_3"] = df["aqi"].shift(3)
@@ -59,25 +36,34 @@ def build_features(
     df["aqi_roll_3"] = df["aqi"].rolling(3).mean()
     df["aqi_roll_7"] = df["aqi"].rolling(7).mean()
 
-    # --------------------
-    # Targets
-    # --------------------
     df["aqi_target_1d"] = df["aqi"].shift(-1)
     df["aqi_target_2d"] = df["aqi"].shift(-2)
     df["aqi_target_3d"] = df["aqi"].shift(-3)
 
     df["aqi_delta_3d"] = df["aqi_target_3d"] - df["aqi"]
 
-    # --------------------
-    # Cleanup
-    # --------------------
-    df = df.dropna()
+    return df.dropna()
 
-    # --------------------
-    # Save
-    # --------------------
+
+# --------------------
+# CSV-BASED PIPELINE (UNCHANGED BEHAVIOR)
+# --------------------
+def build_features(
+    weather_path: str = os.path.join("data", "historical", "openmeteo_weather.csv"),
+    air_path: str = os.path.join("data", "historical", "openmeteo_air_quality.csv"),
+    output_path: str = "aqi_features_v1.csv"
+):
+    weather = pd.read_csv(weather_path)
+    air = pd.read_csv(air_path)
+
+    weather["date"] = pd.to_datetime(weather["date"])
+    air["date"] = pd.to_datetime(air["date"])
+
+    df = weather.merge(air, on="date", how="inner")
+
+    df = apply_feature_engineering(df)
+
     df.to_csv(output_path, index=False)
-
     return df
 
 

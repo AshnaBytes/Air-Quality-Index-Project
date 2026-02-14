@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  test-inference:
+  inference-test:
     runs-on: ubuntu-latest
 
     steps:
@@ -22,10 +22,14 @@ jobs:
         run: |
           pip install -r requirements.txt
 
-      - name: Run inference
+      - name: Run inference test
         env:
           MONGO_URI: ${{ secrets.MONGO_URI }}
           MONGO_DB: ${{ secrets.MONGO_DB }}
           MONGO_COLLECTION: ${{ secrets.MONGO_COLLECTION }}
         run: |
-          python -m inference.predict_next_3_days
+          python - <<EOF
+          from inference.predict_next_3_days import predict_next_3_days
+          preds = predict_next_3_days()
+          print(preds)
+          EOF
