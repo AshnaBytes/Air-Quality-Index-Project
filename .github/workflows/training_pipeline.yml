@@ -28,4 +28,4 @@ jobs:
           MONGO_DB: ${{ secrets.MONGO_DB }}
           MONGO_COLLECTION: ${{ secrets.MONGO_COLLECTION }}
         run: |
-          python -m training_pipeline.train_rf_multi
+          python -m training_pipeline.train_random_forest_multi
