@@ -1,17 +1,17 @@
-import joblib
+import os
 import pandas as pd
 from pymongo import MongoClient
-from pathlib import Path
-import os
+from datetime import timedelta
 from dotenv import load_dotenv
 
 from register_model.load_model import load_production_model
 
 load_dotenv()
 
-# -----------------------------
-# Load latest feature row
-# -----------------------------
+
+# -------------------------------------------------
+# Load latest feature row from MongoDB
+# -------------------------------------------------
 def load_latest_features():
     client = MongoClient(os.getenv("MONGO_URI"))
     collection = client[os.getenv("MONGO_DB")][os.getenv("MONGO_COLLECTION")]
@@ -23,21 +23,26 @@ def load_latest_features():
     )
 
     if not data:
-        raise ValueError("No feature data found for inference")
+        raise ValueError("❌ No feature data found for inference")
 
     df = pd.DataFrame(data)
     df["date"] = pd.to_datetime(df["date"])
+
     return df
 
-from datetime import timedelta
 
+# -------------------------------------------------
+# Predict next 3 days AQI
+# -------------------------------------------------
 def predict_next_3_days():
 
+    # Load latest features
     df = load_latest_features()
 
     latest_date = df["date"].iloc[0]
     today_aqi = float(df["aqi"].iloc[0])
 
+    # Columns NOT used for inference
     DROP_COLS = [
         "date",
         "aqi_target_1d",
@@ -49,9 +54,26 @@ def predict_next_3_days():
 
     X = df.drop(columns=[c for c in DROP_COLS if c in df.columns])
 
+    # -------------------------------------------------
     # Load production model
+    # -------------------------------------------------
     model, meta = load_production_model("rf_multi_aqi")
 
+    # -------------------------------------------------
+    # 🔐 CRITICAL FIX: enforce training feature order
+    # -------------------------------------------------
+    expected_features = list(model.feature_names_in_)
+
+    missing = set(expected_features) - set(X.columns)
+    if missing:
+        raise ValueError(f"❌ Missing features for inference: {missing}")
+
+    # Reorder columns EXACTLY as training
+    X = X[expected_features]
+
+    # -------------------------------------------------
+    # Predict
+    # -------------------------------------------------
     preds = model.predict(X)[0]
 
     forecast = []
@@ -72,8 +94,11 @@ def predict_next_3_days():
     }
 
 
-
+# -------------------------------------------------
+# Local test
+# -------------------------------------------------
 if __name__ == "__main__":
+
     preds = predict_next_3_days()
 
     print("\n📈 AQI Forecast\n")
