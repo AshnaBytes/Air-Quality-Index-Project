@@ -105,18 +105,30 @@ def run_feature_pipeline():
     aqi_data = aqi_resp.json()["hourly"]
 
     aqi_df = pd.DataFrame({
-        "datetime": aqi_data["time"],
-        "pm25": aqi_data["pm2_5"]
+    "datetime": aqi_data["time"],
+    "pm25": aqi_data["pm2_5"],
+    "pm10": aqi_data["pm10"],
+    "no2": aqi_data["nitrogen_dioxide"],
+    "o3": aqi_data["ozone"],
+    "so2": aqi_data["sulphur_dioxide"]
     })
+
 
     aqi_df["datetime"] = pd.to_datetime(aqi_df["datetime"])
     aqi_df["date"] = aqi_df["datetime"].dt.floor("D")
-
+    
     aqi_df = (
-        aqi_df
-        .groupby("date", as_index=False)
-        .agg({"pm25": "mean"})
+    aqi_df
+    .groupby("date", as_index=False)
+    .agg({
+        "pm25": "mean",
+        "pm10": "mean",
+        "no2": "mean",
+        "o3": "mean",
+        "so2": "mean"
+    })
     )
+
 
     # ==================================================
     # 3️⃣ MERGE RAW DATA
