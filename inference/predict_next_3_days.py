@@ -104,7 +104,7 @@ if __name__ == "__main__":
     print("\n📈 AQI Forecast\n")
 
     today = preds["today"]
-    print(f"Today ({today['date']}): AQI {today['aqi']:.2f}\n")
+    print(f"Last observed AQI ({today['date']}): AQI {today['aqi']:.2f}\n")
 
     for item in preds["forecast"]:
         print(f"{item['date']}: AQI {item['aqi']:.2f}")
