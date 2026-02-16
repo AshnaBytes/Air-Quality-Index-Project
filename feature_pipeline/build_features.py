@@ -21,8 +21,11 @@ def pm25_to_aqi(pm):
 # --------------------
 # CORE FEATURE ENGINEERING (REUSABLE)
 # --------------------
-def apply_feature_engineering(df: pd.DataFrame) -> pd.DataFrame:
-    df = df.sort_values("date")
+# --------------------
+# CORE FEATURE ENGINEERING (REUSABLE)
+# --------------------
+def apply_feature_engineering(df: pd.DataFrame, training: bool = True) -> pd.DataFrame:
+    df = df.sort_values("date").copy()
 
     df["aqi"] = df["pm25"].apply(pm25_to_aqi)
 
@@ -36,13 +39,44 @@ def apply_feature_engineering(df: pd.DataFrame) -> pd.DataFrame:
     df["aqi_roll_3"] = df["aqi"].rolling(3).mean()
     df["aqi_roll_7"] = df["aqi"].rolling(7).mean()
 
+    # Targets (needed ONLY for training)
     df["aqi_target_1d"] = df["aqi"].shift(-1)
     df["aqi_target_2d"] = df["aqi"].shift(-2)
     df["aqi_target_3d"] = df["aqi"].shift(-3)
 
     df["aqi_delta_3d"] = df["aqi_target_3d"] - df["aqi"]
 
-    return df.dropna()
+    if training:
+        # Training → require everything including targets
+        return df.dropna()
+    else:
+        # Inference → require ALL model input features (but NOT targets)
+        required_cols = [
+            # Weather features
+            "temperature",
+            "humidity",
+            "wind_speed",
+            "rain",
+            "pressure",
+
+            # Pollutants
+            "pm25",
+            "pm10",
+            "no2",
+            "o3",
+            "so2",
+
+            # Engineered features used during training
+            "aqi_lag_1",
+            "aqi_lag_2",
+            "aqi_lag_3",
+            "aqi_change_rate",
+            "aqi_change_rate_3d",
+            "aqi_roll_3",
+            "aqi_roll_7",
+        ]
+
+        return df.dropna(subset=required_cols)
 
 
 # --------------------

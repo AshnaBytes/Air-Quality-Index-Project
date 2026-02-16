@@ -144,7 +144,7 @@ def run_feature_pipeline():
     # ==================================================
     combined_df = df_new_raw.sort_values("date").copy()
 
-    combined_df = apply_feature_engineering(combined_df)
+    combined_df = apply_feature_engineering(combined_df, training=False)
 
     # ==================================================
     # 6️⃣ KEEP ONLY NEW DATES
