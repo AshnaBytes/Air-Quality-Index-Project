@@ -25,77 +25,101 @@ export default function Dashboard() {
   const { today, forecast } = data;
 
   return (
-    <div className="dashboard">
-      <h1 className="title">🌫️ Karachi Air Quality</h1>
-      <p className="subtitle">Live 3-Day Forecast</p>
+  <div className="dashboard">
 
-      <div className="grid-layout">
+    {/* MAIN HEADER */}
+    <h1 className="title">
+      Air Quality Intelligence Dashboard
+    </h1>
 
-        {/* LEFT PANEL */}
-        <div className="left-panel">
+    <p className="subtitle">
+      Real-Time AQI Monitoring & AI-Powered 3-Day Forecasting
+    </p>
 
-          {/* TODAY AQI */}
-          <TodayCard
-            aqi={today.aqi}
-            date={today.date}
-          />
 
-          {/* TODAY HIGHLIGHTS */}
-          <div className="glass-card highlights-box">
-            <h3 className="section-heading">Today’s Highlights</h3>
+    <div className="grid-layout">
 
-            <div className="details-grid">
-              <WeatherDetailCard
-                title="Humidity"
-                value={today.humidity}
-                unit="%"
-                icon="💧"
-              />
-              <WeatherDetailCard
-                title="Rain"
-                value={today.rain}
-                unit="mm"
-                icon="🌧"
-              />
-              <WeatherDetailCard
-                title="Pressure"
-                value={today.pressure}
-                unit="hPa"
-                icon="🌡️"
-              />
-              <WeatherDetailCard
-                title="Wind"
-                value={today.wind_speed}
-                unit="km/h"
-                icon="🌬️"
-              />
-            </div>
+    
+
+      {/* LEFT PANEL */}
+      <div className="left-panel">
+
+        {/* TODAY WRAPPER GLASS BOX */}
+        <div className="glass-card today-wrapper">
+
+        {/* LOCATION TOP LEFT */}
+        <div className="location-inline">📍 Karachi, Pakistan </div>
+
+        <h2 className="today-section-heading"> Today’s Air Quality Overview </h2>
+
+        <TodayCard
+          aqi={today?.aqi}
+          date={today?.date}
+        />
+
+      </div>
+
+        {/* TODAY HIGHLIGHTS */}
+        <div className="glass-card highlights-box">
+          <h3 className="section-heading">
+            Environmental Conditions
+          </h3>
+
+          <div className="details-grid">
+            <WeatherDetailCard
+              title="Humidity"
+              value={today?.humidity}
+              unit="%"
+              icon="💧"
+            />
+            <WeatherDetailCard
+              title="Rain"
+              value={today?.rain}
+              unit="mm"
+              icon="🌧"
+            />
+            <WeatherDetailCard
+              title="Pressure"
+              value={today?.pressure}
+              unit="hPa"
+              icon="🌡️"
+            />
+            <WeatherDetailCard
+              title="Wind"
+              value={today?.wind_speed}
+              unit="km/h"
+              icon="🌬️"
+            />
           </div>
-
         </div>
 
-        {/* RIGHT PANEL */}
-        <div className="right-panel">
+      </div>
 
-          {/* FORECAST ON TOP */}
-          <div className="glass-card forecast-section">
-            <h3 className="section-heading">3 Days Forecast</h3>
+      {/* RIGHT PANEL */}
+      <div className="right-panel">
 
-            <div className="forecast-row">
-              {forecast.map((day, index) => (
-                <ForecastCard key={index} day={day} />
-              ))}
-            </div>
+        {/* FORECAST */}
+        <div className="glass-card forecast-section">
+          <h3 className="section-heading">
+            3-Day Air Quality Outlook
+          </h3>
+
+          <div className="forecast-row">
+            {forecast.map((day, index) => (
+              <ForecastCard key={index} day={day} />
+            ))}
           </div>
-
-          {/* LINE CHART BELOW */}
-          <AQIChart
-            today={today}
-            forecast={forecast}
-          />
-
         </div>
+
+        {/* TREND CHART */}
+        <AQIChart
+          today={today}
+          forecast={forecast}
+          title="AQI Trend Analysis"
+        />
+
       </div>
     </div>
-  );
+  </div>
+);
 }

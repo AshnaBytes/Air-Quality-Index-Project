@@ -19,7 +19,7 @@ export default function AQIChart({ today, forecast }) {
 
   return (
     <div className="chart-card glass-card">
-      <h3 className="section-heading">AQI Trend</h3>
+      <h3 className="section-heading">Projected AQI Movement Over Upcoming Days</h3>
 
       <ResponsiveContainer width="100%" height={350}>
         <LineChart data={chartData}>

@@ -20,14 +20,65 @@ body {
 }
 
 .title {
-  font-size: 34px;
-  font-weight: 700;
+  font-size: 46px;
+  font-weight: 800;
+  text-align: center;
+  letter-spacing: 1px;
+  margin-bottom: 10px;
 }
 
 .subtitle {
-  opacity: 0.75;
-  margin-bottom: 20px;
+  text-align: center;
+  font-size: 18px;
+  opacity: 0.8;
+  margin-bottom: 30px;
 }
+
+.location-bar {
+  margin: 0 auto 40px auto;
+  width: fit-content;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 22px;
+  border-radius: 40px;
+  background: rgba(255,255,255,0.08);
+  backdrop-filter: blur(15px);
+  box-shadow: 0 6px 25px rgba(0,0,0,0.3);
+}
+
+.location-input {
+  background: transparent;
+  border: none;
+  outline: none;
+  color: white;
+  font-size: 16px;
+  width: 220px;
+}
+
+.location-icon {
+  font-size: 18px;
+}
+
+.today-section-heading {
+  font-size: 22px;
+  font-weight: 700;
+  margin-bottom: 15px;
+}
+
+
+.today-wrapper {
+  padding: 30px;
+  position: relative;
+}
+
+.location-inline {
+  font-size: 14px;
+  opacity: 0.75;
+  margin-bottom: 15px;
+  text-align: left;
+}
+
 
 /* SEARCH */
 
@@ -58,7 +109,7 @@ body {
 .right-panel {
   display: flex;
   flex-direction: column;
-  gap: 25px;
+  gap: 30px;
 }
 
 /* GLASS */
@@ -79,9 +130,9 @@ body {
 /* TODAY */
 
 .today-card {
-  padding: 40px;
+  padding: 35px;
   text-align: center;
-  background: linear-gradient(135deg, #2563eb, #06b6d4);
+  background: linear-gradient(135deg, #3265d4, #318be6);
   border-radius: 24px;
 }
 
@@ -111,10 +162,11 @@ body {
 /* HIGHLIGHTS */
 
 .section-heading {
-  font-size: 18px;
+  font-size: 20px;
   font-weight: 600;
   margin-bottom: 20px;
 }
+
 
 .details-grid {
   display: grid;
@@ -122,9 +174,11 @@ body {
   gap: 20px;
 }
 
+
 .detail-card {
-  background: rgba(255, 255, 255, 0.07);
+  background: rgba(147, 148, 150, 0.715);
   border-radius: 18px;
+  border: 1px solid rgba(20, 4, 4, 0.08);
   padding: 20px;
   text-align: center;
   transition: 0.3s ease;
@@ -179,6 +233,25 @@ body {
 
 @media (max-width: 900px) {
   .grid-layout {
-    grid-template-columns: 1fr;
-  }
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  align-items: start;
 }
+
+.forecast-section {
+  padding: 25px;
+}
+
+.right-panel .glass-card {
+  min-height: auto;
+  border: 1px solid rgba(255,255,255,0.08);
+}
+
+}
+
+
+
+
+
+
