@@ -179,7 +179,7 @@ body {
   background: rgba(147, 148, 150, 0.715);
   border-radius: 18px;
   border: 1px solid rgba(20, 4, 4, 0.08);
-  padding: 20px;
+  padding: 34px;
   text-align: center;
   transition: 0.3s ease;
 }
@@ -247,6 +247,31 @@ body {
   min-height: auto;
   border: 1px solid rgba(255,255,255,0.08);
 }
+
+.advisory-card {
+  padding: 25px;
+}
+
+.advisory-box {
+  margin-top: 15px;
+  padding: 18px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  backdrop-filter: blur(10px);
+}
+
+.advisory-level {
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.advisory-message {
+  font-size: 18px;
+  opacity: 0.85;
+  line-height: 2;
+}
+
 
 }
 

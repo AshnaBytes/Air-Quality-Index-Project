@@ -5,6 +5,7 @@ import TodayCard from "../components/TodayCard";
 import ForecastCard from "../components/ForecastCard";
 import AQIChart from "../components/AQIChart";
 import WeatherDetailCard from "../components/WeatherDetailCard";
+import HealthAdvisory from "../components/HealthAdvisory";
 
 export default function Dashboard() {
   const [data, setData] = useState(null);
@@ -59,6 +60,7 @@ export default function Dashboard() {
 
       </div>
 
+
         {/* TODAY HIGHLIGHTS */}
         <div className="glass-card highlights-box">
           <h3 className="section-heading">
@@ -111,12 +113,19 @@ export default function Dashboard() {
           </div>
         </div>
 
+          {/* ✅ NEW HEALTH ADVISORY CARD */}
+        <div className="glass-card advisory-card">
+          <HealthAdvisory aqi={today?.aqi} />
+        </div>
+
         {/* TREND CHART */}
         <AQIChart
           today={today}
           forecast={forecast}
           title="AQI Trend Analysis"
         />
+
+
 
       </div>
     </div>
