@@ -25,7 +25,7 @@ export default function AQIChart({ today, forecast }) {
         <LineChart data={chartData}>
           <CartesianGrid stroke="rgba(255,255,255,0.1)" />
 
-          <XAxis dataKey="date" stroke="rgba(255,255,255,0.6)" />
+          <XAxis dataKey="date" stroke="rgba(255, 255, 255, 0.6)" />
           <YAxis stroke="rgba(255,255,255,0.6)" />
 
           <Tooltip
@@ -39,7 +39,7 @@ export default function AQIChart({ today, forecast }) {
           <Line
             type="monotone"
             dataKey="aqi"
-            stroke="#8b5cf6"
+            stroke="#3ab0d4"
             strokeWidth={3}
             dot={{ r: 6 }}
             activeDot={{ r: 8 }}
