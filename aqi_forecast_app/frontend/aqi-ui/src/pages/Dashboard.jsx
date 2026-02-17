@@ -3,44 +3,98 @@ import { fetchAQIForecast } from "../api/aqiService";
 
 import TodayCard from "../components/TodayCard";
 import ForecastCard from "../components/ForecastCard";
-import HazardBanner from "../components/HazardBanner";
+import AQIChart from "../components/AQIChart";
+import WeatherDetailCard from "../components/WeatherDetailCard";
 
 export default function Dashboard() {
   const [data, setData] = useState(null);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     fetchAQIForecast()
       .then(setData)
-      .catch(console.error);
+      .catch((err) => {
+        console.error(err);
+        setError("Failed to load AQI data");
+      });
   }, []);
 
-  if (!data) {
-    return <div className="loading">Loading AQI data… 🌫️</div>;
-  }
+  if (error) return <div className="loading">{error}</div>;
+  if (!data) return <div className="loading">Loading AQI data… 🌫️</div>;
+
+  const { today, forecast } = data;
 
   return (
-    <div className="app">
-      <h1>🌫️ Karachi Air Quality Forecast</h1>
-      <p className="subtitle">Next 3-Day AQI Prediction</p>
+    <div className="dashboard">
+      <h1 className="title">🌫️ Karachi Air Quality</h1>
+      <p className="subtitle">Live 3-Day Forecast</p>
 
-      {/* 🚨 Hazard Banner */}
-      <HazardBanner aqi={data.today.aqi} />
+      <div className="grid-layout">
 
-      {/* 📅 Today */}
-      <TodayCard
-        aqi={data.today.aqi}
-        date={data.today.date}
-      />
+        {/* LEFT PANEL */}
+        <div className="left-panel">
 
-      {/* 🔮 Forecast */}
-      <div className="forecast-row">
-        {data.forecast.map((item, idx) => (
-          <ForecastCard
-            key={idx}
-            label={item.date}
-            value={item.aqi}
+          {/* TODAY AQI */}
+          <TodayCard
+            aqi={today.aqi}
+            date={today.date}
           />
-        ))}
+
+          {/* TODAY HIGHLIGHTS */}
+          <div className="glass-card highlights-box">
+            <h3 className="section-heading">Today’s Highlights</h3>
+
+            <div className="details-grid">
+              <WeatherDetailCard
+                title="Humidity"
+                value={today.humidity}
+                unit="%"
+                icon="💧"
+              />
+              <WeatherDetailCard
+                title="Rain"
+                value={today.rain}
+                unit="mm"
+                icon="🌧"
+              />
+              <WeatherDetailCard
+                title="Pressure"
+                value={today.pressure}
+                unit="hPa"
+                icon="🌡️"
+              />
+              <WeatherDetailCard
+                title="Wind"
+                value={today.wind_speed}
+                unit="km/h"
+                icon="🌬️"
+              />
+            </div>
+          </div>
+
+        </div>
+
+        {/* RIGHT PANEL */}
+        <div className="right-panel">
+
+          {/* FORECAST ON TOP */}
+          <div className="glass-card forecast-section">
+            <h3 className="section-heading">3 Days Forecast</h3>
+
+            <div className="forecast-row">
+              {forecast.map((day, index) => (
+                <ForecastCard key={index} day={day} />
+              ))}
+            </div>
+          </div>
+
+          {/* LINE CHART BELOW */}
+          <AQIChart
+            today={today}
+            forecast={forecast}
+          />
+
+        </div>
       </div>
     </div>
   );

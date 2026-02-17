@@ -1,10 +1,13 @@
 import React from "react";
 
+
 function getLevel(aqi) {
-  if (aqi > 150) return { text: "HAZARDOUS ⚠️", color: "#7e0023" };
-  if (aqi > 100) return { text: "UNHEALTHY 😷", color: "#ff8c00" };
-  return { text: "MODERATE 🌤️", color: "#2ecc71" };
+  if (aqi > 200)  return { text: "HAZARDOUS ⚠️", color: "#7e0023" };
+  if (aqi > 150) return { text: "UNHEALTHY 😷", color: "#ff8c00" };
+  if (aqi > 100) return { text: "MODERATE 🌤️", color: "#2ecc71" };
+  return "";
 }
+
 
 export default function HazardBanner({ aqi }) {
   const level = getLevel(aqi);

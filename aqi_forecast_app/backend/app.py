@@ -4,9 +4,8 @@ from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 
 
-BACKEND_DIR = Path(__file__).parent
-sys.path.insert(0, str(BACKEND_DIR))
-
+PROJECT_ROOT = Path(__file__).parent.parent
+sys.path.insert(0, str(PROJECT_ROOT))
 
 app = FastAPI(
     title="AQI Forecast API",

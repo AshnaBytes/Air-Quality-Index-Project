@@ -70,6 +70,8 @@ def predict_next_3_days():
 
     # Reorder columns EXACTLY as training
     X = X[expected_features]
+    latest_row = df.iloc[-1]
+
 
     # -------------------------------------------------
     # Predict
@@ -83,10 +85,15 @@ def predict_next_3_days():
             "aqi": float(preds[i])
         })
 
+
     return {
         "today": {
             "date": latest_date.strftime("%Y-%m-%d"),
-            "aqi": today_aqi
+            "aqi": today_aqi,
+            "humidity": float(latest_row["humidity"]),
+            "rain": float(latest_row["rain"]),
+            "pressure": float(latest_row["pressure"]),
+            "wind_speed": float(latest_row["wind_speed"]),
         },
         "model": meta["model_name"],
         "version": meta["version"],
@@ -102,9 +109,11 @@ if __name__ == "__main__":
     preds = predict_next_3_days()
 
     print("\n📈 AQI Forecast\n")
+    #print(meta)
+
 
     today = preds["today"]
-    print(f"Last observed AQI ({today['date']}): AQI {today['aqi']:.2f}\n")
+    print(f"Today AQI ({today['date']}): AQI {today['aqi']:.2f}\n")
 
     for item in preds["forecast"]:
         print(f"{item['date']}: AQI {item['aqi']:.2f}")

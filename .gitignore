@@ -12,9 +12,6 @@ venv/
 # Jupyter
 .ipynb_checkpoints/
 
-# Data files (generated)
-data/
-
 # OS files
 .DS_Store
 
