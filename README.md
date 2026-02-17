@@ -4,6 +4,7 @@ An end-to-end machine learning system that forecasts the Air Quality Index (AQI)
 
 This project integrates real-time weather data, feature engineering pipelines, model training, model registry, backend APIs, and a React frontend dashboard
 
+
 🚀 Project Overview
 
 This system:
@@ -30,6 +31,7 @@ The goal is to predict AQI trends and provide a clean, real-time dashboard for v
 
 
 🏗️ Architecture
+
 Open-Meteo API
         ↓
 Data Backfill
@@ -97,6 +99,7 @@ Open-Meteo API (Weather Data)
 .Fully responsive UI
 
 
+
 ⚙️ Feature Engineering
 
 Key engineered features include:
@@ -113,9 +116,11 @@ Key engineered features include:
 
 .Multi-output target engineering
 
+
 🤖 Model Training
 
 Initially trained using single-target regression, later shifted to multi-output regression for improved stability and performance.
+
 
 📊 Exploratory Data Analysis (EDA)
 
@@ -149,6 +154,8 @@ AQI showed temporal dependency, justifying lag-based feature engineering.
 
 EDA helped guide feature engineering decisions and target design.
 
+
+
 📊 Exploratory Data Analysis (EDA)
 
 Before model training, I performed detailed Exploratory Data Analysis to understand the structure and relationships within the data.
@@ -171,33 +178,29 @@ Key Insights from EDA:
 .AQI showed temporal dependency, justifying lag-based feature engineering.
 .EDA helped guide feature engineering decisions and target design.
 
+
 🔄 Pipeline Automation
 
 .Automated feature extraction
-
 .Automated inference
-
 .Correct feature ordering enforcement
-
 .Target exclusion during inference
 
 
 Frontend
 
 . Built using React (first time switching from Streamlit)
-
 . Animated gradient background
-
 . Glassmorphism design
-
 . Forecast + trend chart layout
-
 . Responsive design
+
 
 🚀 Deployment
 
 Frontend: Vercel
 Backend: Render
+
 
 📌 Key Learnings
 
