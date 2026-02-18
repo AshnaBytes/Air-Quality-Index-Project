@@ -2,6 +2,14 @@
 
 End-to-end Machine Learning system for forecasting 3-day Air Quality Index (AQI) using weather-driven features, automated pipelines, model registry, and a production-ready React dashboard.
 
+## 🚀 Live Demo
+
+Frontend (Vercel):
+https://air-quality-index-project-iqe8.vercel.app/
+
+Backend API Docs (Railway):
+https://air-quality-index-project-production.up.railway.app/docs
+
 # 📌 Overview
 
 This project is a full-stack ML system that predicts the next 3 days of AQI for Karachi using historical weather data and engineered temporal features.
@@ -177,4 +185,7 @@ To design a production-style ML forecasting system that integrates:
  Frontend visualization
 
 This project demonstrates practical ML system design beyond model training.
+
+
+
 
