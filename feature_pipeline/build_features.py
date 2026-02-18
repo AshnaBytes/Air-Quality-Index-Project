@@ -1,10 +1,8 @@
 import os
 import pandas as pd
 
-
-# --------------------
 # PM2.5 → AQI function (CORE LOGIC)
-# --------------------
+
 def pm25_to_aqi(pm):
     if pm <= 12:
         return (50 / 12) * pm
@@ -18,12 +16,6 @@ def pm25_to_aqi(pm):
         return 300
 
 
-# --------------------
-# CORE FEATURE ENGINEERING (REUSABLE)
-# --------------------
-# --------------------
-# CORE FEATURE ENGINEERING (REUSABLE)
-# --------------------
 def apply_feature_engineering(df: pd.DataFrame, training: bool = True) -> pd.DataFrame:
     df = df.sort_values("date").copy()
 
@@ -52,21 +44,16 @@ def apply_feature_engineering(df: pd.DataFrame, training: bool = True) -> pd.Dat
     else:
         # Inference → require ALL model input features (but NOT targets)
         required_cols = [
-            # Weather features
             "temperature",
             "humidity",
             "wind_speed",
             "rain",
             "pressure",
-
-            # Pollutants
             "pm25",
             "pm10",
             "no2",
             "o3",
             "so2",
-
-            # Engineered features used during training
             "aqi_lag_1",
             "aqi_lag_2",
             "aqi_lag_3",
@@ -79,9 +66,6 @@ def apply_feature_engineering(df: pd.DataFrame, training: bool = True) -> pd.Dat
         return df.dropna(subset=required_cols)
 
 
-# --------------------
-# CSV-BASED PIPELINE (UNCHANGED BEHAVIOR)
-# --------------------
 def build_features(
     weather_path: str = os.path.join("data", "historical", "openmeteo_weather.csv"),
     air_path: str = os.path.join("data", "historical", "openmeteo_air_quality.csv"),

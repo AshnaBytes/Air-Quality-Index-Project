@@ -1,6 +1,7 @@
 from pymongo import MongoClient
 import pandas as pd
 import os
+import numpy as np
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -19,7 +20,21 @@ def load_features():
     df["date"] = pd.to_datetime(df["date"])
     df = df.sort_values("date")
 
-    # 🎯 Targets
+    
+    df = df.replace([np.inf, -np.inf], np.nan)
+
+
+    df = df.dropna(subset=[
+        "aqi_target_1d",
+        "aqi_target_2d",
+        "aqi_target_3d",
+        "aqi_delta_3d"
+    ])
+
+    if df.empty:
+        raise ValueError("No valid training rows after dropping NaN targets")
+
+
     y_1d = df["aqi_target_1d"]
     y_2d = df["aqi_target_2d"]
     y_3d = df["aqi_target_3d"]
@@ -33,6 +48,14 @@ def load_features():
     ]
 
     X = df.drop(columns=[c for c in DROP_COLS if c in df.columns])
+
+
+    X = X.dropna()
+
+    # Align targets with X index (important)
+    y_1d = y_1d.loc[X.index]
+    y_2d = y_2d.loc[X.index]
+    y_3d = y_3d.loc[X.index]
 
     return X, y_1d, y_2d, y_3d
 

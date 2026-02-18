@@ -19,9 +19,9 @@ client = MongoClient(os.getenv("MONGO_URI"))
 collection = client[os.getenv("MONGO_DB")][os.getenv("MONGO_COLLECTION")]
 
 
-# ------------------------------------------------
+
 # Get last stored feature date
-# ------------------------------------------------
+
 def get_last_feature_date():
     doc = collection.find_one(sort=[("date", -1)])
     if doc:
@@ -130,26 +130,19 @@ def run_feature_pipeline():
     )
 
 
-    # ==================================================
-    # 3️⃣ MERGE RAW DATA
-    # ==================================================
+    
     df_new_raw = weather_df.merge(aqi_df, on="date", how="inner")
 
     if df_new_raw.empty:
         print("⚠️ No merged raw data available.")
         return
 
-    # ==================================================
-    # 5️⃣ FEATURE ENGINEERING
-    # ==================================================
+
     combined_df = df_new_raw.sort_values("date").copy()
 
     combined_df = apply_feature_engineering(combined_df, training=False)
 
-    # ==================================================
-    # 6️⃣ KEEP ONLY NEW DATES
-    # ==================================================
-    # Only keep rows newer than last stored feature date
+
     df_final = combined_df[combined_df["date"] > last_date]
 
 
@@ -163,9 +156,7 @@ def run_feature_pipeline():
         print("⚠️ No new rows after feature engineering.")
         return
 
-    # ==================================================
-    # 7️⃣ UPSERT INTO MONGODB
-    # ==================================================
+
     inserted = 0
 
     for record in df_final.to_dict("records"):
