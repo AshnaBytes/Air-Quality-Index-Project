@@ -1,8 +1,8 @@
-🌫️ Karachi Air Quality Intelligence System
+# 🌫️ Karachi Air Quality Intelligence System
 
 End-to-end Machine Learning system for forecasting 3-day Air Quality Index (AQI) using weather-driven features, automated pipelines, model registry, and a production-ready React dashboard.
 
-📌 Overview
+# 📌 Overview
 
 This project is a full-stack ML system that predicts the next 3 days of AQI for Karachi using historical weather data and engineered temporal features.
 
@@ -22,7 +22,7 @@ Modern React dashboard frontend
 
 The system is designed to simulate a production-grade ML pipeline, not just a notebook experiment.
 
-🏗️ System Architecture
+# 🏗️ System Architecture
 
 Open-Meteo API
         ↓
@@ -42,9 +42,9 @@ FastAPI Prediction API
         ↓
 React Dashboard (Visualization)
 
-🧠 Tech Stack
+# 🧠 Tech Stack
 
-🔹 Backend
+##🔹 Backend
 
 Python
 
@@ -60,7 +60,7 @@ MLflow (Model Registry)
 
 Hopsworks (Feature Store)
 
-🔹 Frontend
+##🔹 Frontend
 
 React (Vite)
 
@@ -70,29 +70,29 @@ Glassmorphism UI
 
 Responsive Layout
 
-🔹 Data Source
+##🔹 Data Source
 
 Open-Meteo API (Weather Data)
 
-✨ Core Features
+# ✨ Core Features
 
-📊 3-Day AQI Forecast
+ 3-Day AQI Forecast
 
-🌦️ Weather-based feature engineering
+ Weather-based feature engineering
 
-🔁 Automated inference pipeline
+ Automated inference pipeline
 
-🧾 Model versioning & registry
+ Model versioning & registry
 
-📈 AQI trend visualization
+ AQI trend visualization
 
-📍 Real-time dashboard updates
+ Real-time dashboard updates
 
-⚠ Health advisory system (AQI-based alerts)
+ Health advisory system (AQI-based alerts)
 
-📱 Fully responsive UI
+ Fully responsive UI
 
-⚙️ Feature Engineering
+# ⚙️ Feature Engineering
 
 The model uses temporal and interaction-based features including:
 
@@ -110,7 +110,7 @@ Multi-output target engineering (Day+1, Day+2, Day+3)
 
 Feature ordering consistency is strictly enforced during inference.
 
-📊 Exploratory Data Analysis (EDA)
+# 📊 Exploratory Data Analysis (EDA)
 
 Before training, extensive EDA was performed to understand patterns and guide feature design.
 
@@ -144,7 +144,7 @@ Multi-output regression improved stability over single-target models.
 
 EDA directly influenced feature selection and target design.
 
-🤖 Model Training Strategy
+# 🤖 Model Training Strategy
 
 Initial Approach:
 
@@ -162,7 +162,7 @@ Better temporal consistency
 
 Improved generalization stability
 
-🔄 Pipeline Automation
+# 🔄 Pipeline Automation
 
 This system simulates real ML production constraints:
 
@@ -176,7 +176,7 @@ Correct feature ordering validation
 
 Backfill mechanism for missing historical records
 
-🎨 Frontend Dashboard
+# 🎨 Frontend Dashboard
 
 Built using React (transitioned from Streamlit).
 
@@ -196,12 +196,12 @@ Balanced two-panel SaaS layout
 
 The dashboard transforms raw predictions into an intuitive decision-support interface.
 
-🚀 Deployment
+# 🚀 Deployment
 Frontend	Vercel
 Backend	        Railway
 Database	MongoDB Atlas
 
-📚 Key Learnings
+# 📚 Key Learnings
 
 Importance of feature ordering consistency in ML pipelines
 
@@ -217,7 +217,7 @@ Debugging pipeline automation in distributed environments
 
 
 
-🎯 Project Goal
+# 🎯 Project Goal
 
 To design a production-style ML forecasting system that integrates:
 
@@ -233,14 +233,3 @@ Frontend visualization
 
 This project demonstrates practical ML system design beyond model training.
 
-📌 Future Improvements
-
-Scheduled retraining
-
-CI/CD integration
-
-AQI category-based UI theme switching
-
-Real-time streaming updates
-
-Model performance monitoring dashboard
