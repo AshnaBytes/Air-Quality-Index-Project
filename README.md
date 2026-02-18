@@ -8,12 +8,12 @@ This project is a full-stack ML system that predicts the next 3 days of AQI for 
 
 It combines:
 
-1.Real-time weather ingestion
-2.Feature engineering pipelines
-3.Automated training & inference
-4.Model versioning & registry
-5.REST API backend
-6.Modern React dashboard frontend
+1. Real-time weather ingestion
+2. Feature engineering pipelines
+3. Automated training & inference
+4. Model versioning & registry
+5. REST API backend
+6. Modern React dashboard frontend
 
 The system is designed to simulate a production-grade ML pipeline, not just a notebook experiment.
 
@@ -41,20 +41,20 @@ React Dashboard (Visualization)
 
 ### Backend
 
-.Python
-.FastAPI
-.Scikit-learn
-.Pandas / NumPy
-.MongoDB
-.MLflow (Model Registry)
-.Hopsworks (Feature Store)
+Python
+FastAPI
+Scikit-learn
+Pandas / NumPy
+MongoDB
+MLflow (Model Registry)
+Hopsworks (Feature Store)
 
 ### Frontend
 
-.React (Vite)
-.Recharts
-.Glassmorphism UI
-.Responsive Layout
+React (Vite)
+Recharts
+Glassmorphism UI
+Responsive Layout
 
 ### Data Source
 
@@ -75,12 +75,12 @@ Open-Meteo API (Weather & AQI Data)
 
 The model uses temporal and interaction-based features including:
 
-.Rolling averages
-.Lag features (time dependency modeling)
-.Humidity influence factors
-.Wind speed interactions
-.Pressure variation signals
-.Multi-output target engineering (Day+1, Day+2, Day+3)
+Rolling averages
+Lag features (time dependency modeling)
+Humidity influence factors
+Wind speed interactions
+Pressure variation signals
+Multi-output target engineering (Day+1, Day+2, Day+3)
 
 Feature ordering consistency is strictly enforced during inference.
 
@@ -118,9 +118,9 @@ Improved Approach: Multi-output regression (predicting 3 future AQI values simul
 
 Why multi-output?
 
-. Reduced prediction drift
-. Better temporal consistency
-. Improved generalization stability
+Reduced prediction drift
+Better temporal consistency
+Improved generalization stability
 
 # 🔄 Pipeline Automation
 
@@ -134,14 +134,14 @@ This system simulates real ML production constraints:
 
 # 🎨 Frontend Dashboard
 
-. Built using React (transitioned from Streamlit).
-. UI Features
-. Animated gradient background
-. Glassmorphism components
-. AQI trend chart
-. Environmental condition cards
-. Health advisory panel
-. Balanced two-panel SaaS layout
+ Built using React (transitioned from Streamlit).
+ UI Features
+ Animated gradient background
+ Glassmorphism components
+ AQI trend chart
+ Environmental condition cards
+ Health advisory panel
+ Balanced two-panel SaaS layout
 
 The dashboard transforms raw predictions into an intuitive decision-support interface.
 
@@ -170,11 +170,11 @@ Database ---->	MongoDB Atlas
 
 To design a production-style ML forecasting system that integrates:
 
-. Data engineering
-. Feature engineering
-. Model lifecycle management
-. API serving
-. Frontend visualization
+ Data engineering
+ Feature engineering
+ Model lifecycle management
+ API serving
+ Frontend visualization
 
 This project demonstrates practical ML system design beyond model training.
 
