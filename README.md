@@ -199,7 +199,7 @@ Frontend
 🚀 Deployment
 
 Frontend: Vercel
-Backend: Render
+Backend: Railway
 
 
 📌 Key Learnings

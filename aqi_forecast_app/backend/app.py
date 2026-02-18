@@ -25,6 +25,12 @@ app.add_middleware(
 
 from inference.predict_next_3_days import predict_next_3_days
 
+
+@app.get("/")
+def root():
+    return {"message": "AQI Backend is running 🚀"}
+
+
 @app.get("/predict")
 def predict():
     """
